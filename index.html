@@ -57,6 +57,30 @@ nav.scrolled{background:rgba(8,8,8,.99)}
 .nav-links a:hover::after{right:0}
 .nav-links a.active{color:var(--w)}
 .nav-links a.active::after{right:0}
+.nav-submenu-trigger{position:relative}
+.nav-submenu{position:absolute;top:calc(100% + 8px);left:-20px;min-width:280px;z-index:999;
+  background:linear-gradient(135deg,rgba(8,8,8,.96) 0%,rgba(20,5,35,.96) 100%);
+  backdrop-filter:blur(24px);border:1px solid rgba(123,47,190,.35);
+  border-radius:12px;box-shadow:0 12px 40px rgba(123,47,190,.15);
+  display:flex;flex-direction:column;gap:2px;padding:8px;
+  max-height:0;opacity:0;visibility:hidden;overflow:hidden;
+  transition:max-height .35s cubic-bezier(.4,0,.2,1),opacity .25s ease .08s,
+            visibility .35s}
+.nav-submenu.open{max-height:400px;opacity:1;visibility:visible}
+.nav-submenu a{position:relative;display:flex;align-items:center;gap:12px;
+  padding:14px 16px;font-family:var(--mono);font-size:12px;
+  letter-spacing:.13em;text-transform:uppercase;color:rgba(255,255,255,.7);
+  text-decoration:none;transition:all .25s;border-radius:8px;
+  overflow:hidden}
+.nav-submenu a::before{content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg,rgba(123,47,190,0),rgba(123,47,190,.08));
+  opacity:0;transition:opacity .25s;z-index:-1}
+.nav-submenu a:hover{background:rgba(123,47,190,.15);color:#fff}
+.nav-submenu a:hover::before{opacity:1}
+.nav-submenu a::after{content:'';display:inline-block;width:4px;height:4px;
+  border-radius:50%;background:var(--p);margin-left:auto;opacity:0;
+  transition:opacity .25s,transform .25s}
+.nav-submenu a:hover::after{opacity:1;transform:translateX(-4px)}
 .nav-cta{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;
   background:var(--p);color:white;border:none;padding:10px 20px;text-decoration:none;
   white-space:nowrap;transition:background .2s,box-shadow .2s}
@@ -177,9 +201,9 @@ section{position:relative;overflow:hidden}
   background:linear-gradient(90deg,transparent,rgba(123,47,190,.25),transparent)}
 
 /* ════════ SOBRE ════════ */
-#sobre{padding:68px 0;background:var(--d2);border-top:1px solid rgba(255,255,255,.04)}
+#sobre{padding:68px 0;background:var(--d2);border-top:none}
 .sobre-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:72px;align-items:start}
-.sobre-bio{font-size:16px;color:var(--m);line-height:1.85;margin-top:22px}
+.sobre-bio{font-size:16px;color:rgba(255,255,255,.72);line-height:1.85;margin-top:22px}
 .sobre-bio strong{color:rgba(255,255,255,.8);font-weight:600}
 .stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
   margin-top:44px;border:1px solid rgba(255,255,255,.05);background:rgba(255,255,255,.03)}
@@ -188,10 +212,10 @@ section{position:relative;overflow:hidden}
 .stat-lbl{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
   color:rgba(255,255,255,.25);margin-top:6px}
 .stack-chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:36px}
-.stack-chip{font-family:var(--mono);font-size:11px;letter-spacing:.08em;
-  padding:5px 12px;border:1px solid rgba(255,255,255,.07);
-  color:rgba(255,255,255,.35);background:var(--d3);transition:all .2s}
-.stack-chip:hover{border-color:rgba(123,47,190,.35);color:rgba(123,47,190,.75)}
+.stack-chip{font-family:var(--mono);font-size:12px;letter-spacing:.08em;
+  padding:7px 16px;border:1px solid rgba(123,47,190,.4);
+  color:rgba(200,160,255,.9);background:rgba(123,47,190,.1);transition:all .2s}
+.stack-chip:hover{border-color:rgba(155,79,222,.7);color:#fff;background:rgba(123,47,190,.22)}
 .xp-cards{display:flex;flex-direction:column;gap:10px}
 .xp-card{border:1px solid rgba(255,255,255,.05);border-left:2px solid var(--p);
   background:var(--d3);padding:20px 22px;transition:all .25s}
@@ -204,7 +228,7 @@ section{position:relative;overflow:hidden}
 .xp-desc{font-size:16px;color:var(--m);line-height:1.6}
 
 /* ════════ SERVIÇOS ════════ */
-#servicos{padding:68px 0;background:var(--d);border-top:1px solid rgba(255,255,255,.04)}
+#servicos{padding:68px 0;background:var(--d)}
 .svc-head{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:48px;gap:20px}
 .svc-tagline{font-size:14px;color:var(--m);max-width:280px;line-height:1.65;padding-bottom:6px}
 .svc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:rgba(255,255,255,.04)}
@@ -233,7 +257,7 @@ section{position:relative;overflow:hidden}
 .svc-foot strong{color:var(--w);font-size:14px}
 
 /* ════════ THREAT ════════ */
-#threat{padding:68px 0;background:var(--d2);border-top:1px solid rgba(255,255,255,.04)}
+#threat{padding:68px 0;background:var(--d2);border-top:none}
 .threat-grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
 .ti-list{margin-top:32px;display:flex;flex-direction:column}
 .ti-item{display:grid;grid-template-columns:46px 1fr;gap:16px;padding:20px 0;
@@ -261,7 +285,7 @@ section{position:relative;overflow:hidden}
   animation:blink 1.1s step-end infinite;vertical-align:text-bottom}
 
 /* ════════ ATTACK SURFACE ════════ */
-#surface{padding:68px 0;background:var(--d);border-top:1px solid rgba(255,255,255,.04)}
+#surface{padding:68px 0;background:var(--d);border-top:none}
 .surface-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
   background:rgba(255,255,255,.03);margin-top:48px}
 .surf{background:var(--d);padding:28px 20px;position:relative;transition:background .3s}
@@ -281,7 +305,7 @@ section{position:relative;overflow:hidden}
 .surf-item::before{content:'›';font-size:14px;color:var(--pb)}
 
 /* ════════ PROCESSO ════════ */
-#processo{padding:68px 0;background:var(--d2);border-top:1px solid rgba(255,255,255,.04)}
+#processo{padding:68px 0;background:var(--d2);border-top:none}
 .proc-steps{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin-top:52px;position:relative}
 .proc-steps::before{content:'';position:absolute;top:38px;left:10%;right:10%;height:1px;
   background:linear-gradient(90deg,
@@ -310,18 +334,18 @@ section{position:relative;overflow:hidden}
   margin-top:52px;background:rgba(255,255,255,.03)}
 .deliv{background:var(--d2);padding:28px 24px;border-top:2px solid rgba(123,47,190,.35)}
 .deliv-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
-.deliv-ico{width:32px;height:32px;background:rgba(123,47,190,.05);border:1px solid rgba(123,47,190,.13);
+.deliv-ico{width:32px;height:32px;background:rgba(123,47,190,.12);border:1px solid rgba(123,47,190,.45);
   display:flex;align-items:center;justify-content:center}
-.deliv-ico svg{width:15px;height:15px;fill:none;stroke:rgba(123,47,190,.7);stroke-width:1.5}
+.deliv-ico svg{width:15px;height:15px;fill:none;stroke:rgba(180,110,255,.95);stroke-width:1.5}
 .deliv-t{font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--p);text-transform:uppercase}
 .deliv-d{font-size:16px;color:rgba(255,255,255,.68);line-height:1.65}
 
 /* ════════ CONTATO ════════ */
-#contato{padding:68px 0 52px;background:var(--d);border-top:1px solid rgba(255,255,255,.04);position:relative}
+#contato{padding:68px 0 52px;background:var(--d);border-top:none;position:relative}
 .contato-glow{position:absolute;inset:0;pointer-events:none;
   background:radial-gradient(ellipse 70% 70% at 50% 50%,rgba(70,10,130,.08) 0%,transparent 70%)}
 .contato-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:72px;align-items:start}
-.contato-sub{font-size:16px;color:var(--m);line-height:1.8;margin-top:22px;max-width:360px}
+.contato-sub{font-size:16px;color:rgba(255,255,255,.72);line-height:1.8;margin-top:22px;max-width:360px}
 .channels{display:flex;flex-direction:column;gap:8px;margin-top:36px}
 .ch{display:flex;align-items:center;gap:14px;padding:14px 18px;
   border:1px solid rgba(255,255,255,.05);background:var(--d3);
@@ -376,7 +400,7 @@ section{position:relative;overflow:hidden}
 .csel-opt.placeholder-opt{color:rgba(255,255,255,.25)}
 
 /* ════════ FOOTER ════════ */
-footer{background:var(--d2);border-top:1px solid rgba(255,255,255,.04);padding:32px 0}
+footer{background:var(--d2);border-top:none;padding:32px 0}
 .footer-inner{display:flex;align-items:center;justify-content:space-between;gap:20px}
 .footer-logo{display:flex;align-items:center;gap:9px;text-decoration:none}
 .footer-logo-mark{width:36px;height:36px;display:flex;align-items:center;justify-content:center;flex-shrink:0;filter:drop-shadow(0 0 8px rgba(123,47,190,.4))}
@@ -392,14 +416,47 @@ footer{background:var(--d2);border-top:1px solid rgba(255,255,255,.04);padding:3
 /* canvas */
 #pcanvas{position:fixed;inset:0;z-index:0;pointer-events:none}
 
+/* ── SECTION FADE TRANSITIONS ── */
+section[id]::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:80px;
+  background:linear-gradient(to bottom,rgba(0,0,0,.55),transparent);
+  z-index:1;pointer-events:none}
+section[id]::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:80px;
+  background:linear-gradient(to top,rgba(0,0,0,.55),transparent);
+  z-index:1;pointer-events:none}
+
 /* ── GEISHA DECO (watermark em seções) ── */
 .geisha-deco{position:absolute;pointer-events:none;z-index:0;
   opacity:.12;filter:grayscale(1)}
+#contato .geisha-deco{opacity:.05}
 .geisha-deco img{width:100%;display:block}
 
 /* ── CENTERED SECTION HEADERS ── */
 #surface .sec-label,#processo .sec-label{justify-content:center}
 #surface .sec-title,#processo .sec-title{text-align:center}
+
+/* ── HAMBURGER & MOBILE MENU ── */
+.nav-burger{display:none;flex-direction:column;justify-content:center;gap:5px;
+  background:none;border:none;cursor:pointer;padding:6px;z-index:600;flex-shrink:0}
+.nav-burger span{display:block;width:22px;height:2px;background:var(--w);
+  transition:transform .3s ease,opacity .3s ease;border-radius:2px}
+.nav-burger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.nav-burger.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+.nav-burger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+
+.nav-mobile{position:fixed;top:58px;left:0;right:0;bottom:0;z-index:498;
+  background:rgba(8,8,8,.97);backdrop-filter:blur(24px);
+  display:none;flex-direction:column;align-items:center;justify-content:center;gap:36px;
+  transform:translateX(100%);transition:transform .38s cubic-bezier(.4,0,.2,1)}
+.nav-mobile.open{transform:translateX(0)}
+.nav-mobile a{font-family:var(--mono);font-size:16px;letter-spacing:.22em;
+  text-transform:uppercase;color:rgba(255,255,255,.65);text-decoration:none;transition:color .2s}
+.nav-mobile a:hover,.nav-mobile a.active{color:var(--w)}
+.nav-mobile .mob-cta{margin-top:12px;background:var(--p);color:#fff;
+  padding:14px 36px;font-family:var(--mono);font-size:13px;letter-spacing:.18em;
+  text-transform:uppercase;transition:background .2s}
+.nav-mobile .mob-cta:hover{background:var(--pb);color:#fff}
 
 /* ── FLOATING CTA ── */
 .float-cta{position:fixed;bottom:28px;right:28px;z-index:998;
@@ -441,15 +498,17 @@ footer{background:var(--d2);border-top:1px solid rgba(255,255,255,.04);padding:3
 
   /* nav */
   nav{padding:0 4vw;height:58px}
-  .nav-logo-mark{width:44px;height:44px}
-  .nav-logo-mark img{width:44px;height:44px}
+  .nav-logo-mark{width:52px;height:52px}
+  .nav-logo-mark img{width:52px;height:52px}
   .nav-logo-text .logo-name,.nav-logo-text .logo-sub{font-size:18px}
   .nav-logo-text .logo-sub{margin-left:6px}
-  .nav-cta{padding:8px 14px;font-size:9px}
+  .nav-cta{display:none}
+  .nav-burger{display:flex}
+  .nav-mobile{display:flex}
 
   /* hero */
-  #hero{min-height:100svh;align-items:flex-start}
-  .hero-inner{padding:74px 4vw 56px;gap:0}
+  #hero{display:block;min-height:0}
+  .hero-inner{padding:74px 4vw 56px;gap:0;grid-template-columns:1fr}
   .hero-eyebrow{font-size:9px;letter-spacing:.18em;margin-bottom:16px}
   .hero-title{font-size:clamp(52px,15vw,80px)}
   .hero-desc{font-size:14px;margin-top:16px}
@@ -506,6 +565,7 @@ footer{background:var(--d2);border-top:1px solid rgba(255,255,255,.04);padding:3
 
   /* processo */
   .proc-steps{grid-template-columns:1fr;gap:0;margin-top:32px}
+  .proc-steps::before,.proc-steps::after{display:none}
   .proc-step{flex-direction:row;text-align:left;align-items:flex-start;
     gap:16px;padding:18px 0;border-bottom:1px solid rgba(255,255,255,.04)}
   .proc-num{width:50px;height:50px;font-size:22px;flex-shrink:0;margin-bottom:0}
@@ -547,7 +607,7 @@ footer{background:var(--d2);border-top:1px solid rgba(255,255,255,.04);padding:3
   #sobre .geisha-deco{right:auto;bottom:auto;width:100%;left:50%;top:50%;transform:translate(-50%,-50%);opacity:.06}
 
   /* geisha contato */
-  #contato .geisha-deco{left:50%;top:50%;transform:translate(-50%,-50%);width:100%;opacity:.06}
+  #contato .geisha-deco{left:50%!important;top:50%!important;transform:translate(-50%,-50%)!important;width:90%!important;opacity:.03}
 
   /* float cta */
   .float-cta{bottom:18px;right:16px;width:50px;height:50px;font-size:22px}
@@ -608,13 +668,46 @@ footer{background:var(--d2);border-top:1px solid rgba(255,255,255,.04);padding:3
   </a>
   <ul class="nav-links">
     <li><a href="#sobre">Sobre</a></li>
-    <li><a href="#servicos">Serviços</a></li>
+    <li class="nav-submenu-trigger" onmouseenter="openNavSubmenu()" onmouseleave="closeNavSubmenu()">
+      <a href="#servicos">Serviços</a>
+      <div class="nav-submenu" id="nav-submenu" onmouseenter="openNavSubmenu()" onmouseleave="closeNavSubmenu()">
+        <a href="#servicos" data-service="pentest">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><circle cx="12" cy="17" r="1"/></svg>
+          Pentest Mobile
+        </a>
+        <a href="#servicos" data-service="infra">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+          Pentest Infra
+        </a>
+        <a href="#servicos" data-service="intel">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/><line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/></svg>
+          Threat Intel
+        </a>
+        <a href="#servicos" data-service="surface">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
+          Attack Surface
+        </a>
+      </div>
+    </li>
     <li><a href="#threat">Threat Intel</a></li>
     <li><a href="#surface">Attack Surface</a></li>
     <li><a href="#processo">Processo</a></li>
   </ul>
   <a href="#contato" class="nav-cta">Fale Conosco</a>
+  <button class="nav-burger" id="nav-burger" aria-label="Menu" onclick="toggleMobileMenu()">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- MOBILE MENU -->
+<div class="nav-mobile" id="nav-mobile">
+  <a href="#sobre"   onclick="toggleMobileMenu()">Sobre</a>
+  <a href="#servicos" onclick="toggleMobileMenu()">Serviços</a>
+  <a href="#threat"  onclick="toggleMobileMenu()">Threat Intel</a>
+  <a href="#surface" onclick="toggleMobileMenu()">Attack Surface</a>
+  <a href="#processo" onclick="toggleMobileMenu()">Processo</a>
+  <a href="#contato" class="mob-cta" onclick="toggleMobileMenu()">Fale Conosco</a>
+</div>
 
 <!-- HERO -->
 <section id="hero">
@@ -701,7 +794,7 @@ footer{background:var(--d2);border-top:1px solid rgba(255,255,255,.04);padding:3
     <div class="svc-head">
       <div>
         <div class="sec-label rv">Serviços</div>
-        <h2 class="sec-title rv d1">CONSULTORIAS<br><em>ESPECIALIZADAS</em></h2>
+        <h2 class="sec-title rv d1">CONSULTORIA<br><em>ESPECIALIZADA</em></h2>
       </div>
     </div>
     <div class="svc-grid rv d2">
@@ -851,9 +944,9 @@ footer{background:var(--d2);border-top:1px solid rgba(255,255,255,.04);padding:3
             <div class="ch-ico"><svg><use href="#ico-mail"/></svg></div>
             <div><div class="ch-label">Email</div><div class="ch-val">contato@melosecurity.com.br</div></div>
           </a>
-          <a class="ch" href="https://linkedin.com/in/lucasmelogs" target="_blank">
+          <a class="ch" href="https://www.linkedin.com/company/melo-security/" target="_blank">
             <div class="ch-ico"><svg><use href="#ico-linkedin"/></svg></div>
-            <div><div class="ch-label">LinkedIn</div><div class="ch-val">linkedin.com/in/lucasmelogs</div></div>
+            <div><div class="ch-label">LinkedIn</div><div class="ch-val">linkedin.com/company/melo-security</div></div>
           </a>
 
         </div>
@@ -911,6 +1004,23 @@ footer{background:var(--d2);border-top:1px solid rgba(255,255,255,.04);padding:3
 <a href="#contato" class="float-cta">?</a>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// NAV SUBMENU
+function openNavSubmenu(){
+  document.getElementById('nav-submenu').classList.add('open');
+}
+function closeNavSubmenu(){
+  document.getElementById('nav-submenu').classList.remove('open');
+}
+
+// HAMBURGER MENU
+function toggleMobileMenu(){
+  const burger = document.getElementById('nav-burger');
+  const menu   = document.getElementById('nav-mobile');
+  burger.classList.toggle('open');
+  menu.classList.toggle('open');
+  document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
+}
+
 // NAV ACTIVE STATE
 (function(){
   const links = document.querySelectorAll('.nav-links a');
